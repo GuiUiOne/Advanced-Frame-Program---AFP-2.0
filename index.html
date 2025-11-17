@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Frame Program | AFP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Share Tech Mono', monospace;
+        background-color: #000;
+        color: #0f0;
+        --stranger-red: #e03434;
+      }
+      .font-orbitron {
+        font-family: 'Orbitron', sans-serif;
+      }
+      .scanlines::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(
+          to bottom,
+          rgba(18, 16, 16, 0) 50%,
+          rgba(0, 0, 0, 0.25) 50%
+        );
+        background-size: 100% 4px;
+        z-index: 2;
+        pointer-events: none;
+        animation: scan 0.2s linear infinite;
+      }
+
+      @keyframes scan {
+        0% { background-position: 0 0; }
+        100% { background-position: 0 4px; }
+      }
+      
+      .glitch {
+        animation: glitch 1.5s linear infinite;
+      }
+
+      @keyframes glitch{
+        2%,64%{
+          transform: translate(2px,0) skew(0deg);
+        }
+        4%,60%{
+          transform: translate(-2px,0) skew(0deg);
+        }
+        62%{
+          transform: translate(0,0) skew(5deg); 
+        }
+      }
+
+      .glitch:before,
+      .glitch:after{
+        content: attr(data-text);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+        overflow: hidden;
+      }
+
+      .glitch:before{
+        left: 2px;
+        text-shadow: -2px 0 var(--stranger-red);
+        clip: rect(44px, 450px, 56px, 0);
+        animation: glitch-anim 5s infinite linear alternate-reverse;
+      }
+
+      .glitch:after{
+        left: -2px;
+        text-shadow: -2px 0 #00ff00, 2px 2px var(--stranger-red);
+        clip: rect(85px, 450px, 90px, 0);
+        animation: glitch-anim-2 3s infinite linear alternate-reverse;
+      }
+
+      @keyframes glitch-anim{
+        0% { clip: rect(21px, 9999px, 83px, 0); } 5% { clip: rect(48px, 9999px, 81px, 0); } 10% { clip: rect(45px, 9999px, 5px, 0); } 15% { clip: rect(48px, 9999px, 48px, 0); } 20% { clip: rect(10px, 9999px, 8px, 0); } 25% { clip: rect(14px, 9999px, 52px, 0); } 30% { clip: rect(40px, 9999px, 43px, 0); } 35% { clip: rect(3px, 9999px, 6px, 0); } 40% { clip: rect(18px, 9999px, 88px, 0); } 45% { clip: rect(74px, 9999px, 51px, 0); } 50% { clip: rect(59px, 9999px, 59px, 0); } 55% { clip: rect(78px, 9999px, 12px, 0); } 60% { clip: rect(11px, 9999px, 2px, 0); } 65% { clip: rect(88px, 9999px, 5px, 0); } 70% { clip: rect(51px, 9999px, 88px, 0); } 75% { clip: rect(11px, 9999px, 8px, 0); } 80% { clip: rect(8px, 9999px, 45px, 0); } 85% { clip: rect(54px, 9999px, 20px, 0); } 90% { clip: rect(32px, 9999px, 60px, 0); } 95% { clip: rect(13px, 9999px, 3px, 0); } 100% { clip: rect(71px, 9999px, 73px, 0); }
+      }
+
+      @keyframes glitch-anim-2{
+        0% { clip: rect(3px, 9999px, 94px, 0); } 5% { clip: rect(29px, 9999px, 26px, 0); } 10% { clip: rect(10px, 9999px, 52px, 0); } 15% { clip: rect(17px, 9999px, 83px, 0); } 20% { clip: rect(8px, 9999px, 54px, 0); } 25% { clip: rect(3px, 9999px, 25px, 0); } 30% { clip: rect(43px, 9999px, 21px, 0); } 35% { clip: rect(8px, 9999px, 4px, 0); } 40% { clip: rect(71px, 9999px, 69px, 0); } 45% { clip: rect(17px, 9999px, 57px, 0); } 50% { clip: rect(98px, 9999px, 76px, 0); } 55% { clip: rect(95px, 9999px, 44px, 0); } 60% { clip: rect(9px, 9999px, 42px, 0); } 65% { clip: rect(42px, 9999px, 85px, 0); } 70% { clip: rect(9px, 9999px, 49px, 0); } 75% { clip: rect(49px, 9999px, 28px, 0); } 80% { clip: rect(85px, 9999px, 72px, 0); } 85% { clip: rect(10px, 9999px, 49px, 0); } 90% { clip: rect(81px, 9999px, 35px, 0); } 95% { clip: rect(2px, 9999px, 16px, 0); } 100% { clip: rect(61px, 9999px, 14px, 0); }
+      }
+
+      .fade-in-section {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        visibility: hidden;
+      }
+      .fade-in-section.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+      }
+      
+      @keyframes pulse-red {
+        0%, 100% {
+            color: var(--stranger-red);
+            text-shadow: 0 0 5px var(--stranger-red), 0 0 10px var(--stranger-red);
+        }
+        50% {
+            color: #ff9a9a;
+            text-shadow: 0 0 10px var(--stranger-red), 0 0 20px var(--stranger-red);
+        }
+      }
+      .pulse-live {
+        animation: pulse-red 2s infinite;
+      }
+
+      @keyframes flicker {
+        0%, 18%, 22%, 25%, 53%, 57%, 100% {
+            text-shadow:
+            0 0 4px #0f0, 0 0 11px #0f0, 0 0 19px #0f0, 0 0 40px #0f0,
+            0 0 80px #0f0, 0 0 90px #0f0, 0 0 100px #0f0, 0 0 150px #0f0;
+        }
+        20%, 24%, 55% { text-shadow: none; }
+      }
+      .flicker { animation: flicker 1.5s infinite alternate; }
+      .flicker-red {
+        animation: flicker-red-anim 2s infinite alternate;
+      }
+      @keyframes flicker-red-anim {
+        0%, 18%, 22%, 25%, 53%, 57%, 100% {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px var(--stranger-red), 0 0 35px var(--stranger-red), 0 0 40px var(--stranger-red), 0 0 50px var(--stranger-red), 0 0 75px var(--stranger-red);
+        }
+        20%, 24%, 55% { text-shadow: none; }
+      }
+      
+      .flicker-green {
+         animation: flicker-green-anim 3s infinite alternate;
+      }
+      @keyframes flicker-green-anim {
+        0%, 18%, 22%, 25%, 53%, 57%, 100% {
+             text-shadow: 0 0 4px #0f0, 0 0 11px #0f0, 0 0 19px #0f0;
+        }
+        20%, 24%, 55% { text-shadow: none; }
+      }
+
+      .scrolling-text-content { animation: scroll-text 30s linear infinite; }
+      @keyframes scroll-text { from { transform: translateY(0); } to { transform: translateY(-100%); } }
+
+      /* Stranger Things Theme Additions */
+      .upside-down-particles {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;
+      }
+      @keyframes float-particles {
+        0% { transform: translateY(0); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateY(-100vh); opacity: 0; }
+      }
+      .particle {
+        position: absolute; width: 3px; height: 3px; background-color: var(--stranger-red); border-radius: 50%;
+        animation: float-particles 10s linear infinite;
+        filter: blur(1px);
+      }
+
+      .vine-border {
+        position: relative;
+      }
+      .vine-border::before {
+        content: '';
+        position: absolute;
+        top: -2px; left: -2px; right: -2px; bottom: -2px;
+        border: 2px solid var(--stranger-red);
+        opacity: 0.3;
+        animation: pulse-border 3s infinite;
+      }
+       @keyframes pulse-border {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 0.7; }
+      }
+      
+      .upside-down-glitch {
+        animation: red-glitch-anim 0.3s forwards;
+      }
+      @keyframes red-glitch-anim {
+        0% { opacity: 0; }
+        25% { opacity: 0.8; transform: skewX(-10deg); }
+        50% { opacity: 0.4; }
+        75% { opacity: 0.9; transform: skewX(10deg); }
+        100% { opacity: 0; }
+      }
+
+      @keyframes flow-line-anim {
+        0% { background-position: -400px 0; }
+        100% { background-position: 400px 0; }
+      }
+
+      .timeline-item {
+        opacity: 0;
+        animation: timeline-fade-in 0.5s forwards;
+      }
+      @keyframes timeline-fade-in {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes waveform-red {
+        0%, 100% { transform: scaleY(0.2); }
+        50% { transform: scaleY(1); }
+      }
+      
+      .globe-rotation {
+        animation: globe-rotation 40s linear infinite;
+      }
+      @keyframes globe-rotation {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes pulse-dot {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; transform: scale(1.5); }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
